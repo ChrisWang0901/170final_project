@@ -1,6 +1,6 @@
 import networkx as nx
 from parse import read_input_file, write_output_file
-from utils import is_valid_network, average_pairwise_distance
+from utils import is_valid_network, average_pairwise_distance, average_pairwise_distance_fast
 from networkx.algorithms import approximation
 import sys
 import random
@@ -20,6 +20,7 @@ def solve(G):
     # find the min weight dominating set
     d_set = nx.algorithms.approximation.min_weighted_dominating_set(G)
     ld_set = list(d_set)
+    print(d_set)
     g = nx.Graph()
     g.add_nodes_from(d_set)
     
@@ -64,5 +65,15 @@ if __name__ == '__main__':
 	    T = solve(G)
 	    assert is_valid_network(G, T)
 	    name = path[:-3]
-	    print("Average  pairwise distance: {}".format(average_pairwise_distance(T)))
+	    print("Average  pairwise distance: {}".format(average_pairwise_distance_fast(T)))
 	    write_output_file(T, f'outputs/{name}.out')
+
+# if __name__ == '__main__':
+#     assert len(sys.argv) == 2
+#     path = sys.argv[1]
+#     G = read_input_file('inputs/'+ path)
+#     T = solve(G)
+#     assert is_valid_network(G, T)
+#     name = path[:-3]
+#     print("Average  pairwise distance: {}".format(average_pairwise_distance_fast(T)))
+#     write_output_file(T, f'outputs/{name}.out')
