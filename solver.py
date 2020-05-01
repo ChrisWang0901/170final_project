@@ -35,11 +35,11 @@ def solve(G):
     		end = random.choice(ld_set)
     	# print("start", start, "end", end)
     	path = nx.shortest_path(G, start, end)
-    	# print(path)
+        # print(path)
     	for i in range(len(path) - 1):
     		g.add_edge(path[i], path[i + 1], weight = G[path[i]][path[i + 1]]['weight'])
     		if path[i] in unconnected_nodes:
-    			unconnected_nodes.remove(v)
+    			unconnected_nodes.remove(path[i])
 
 
     #find the minimum spanning tree in the graph
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     # assert len(sys.argv) == 2
     # path = sys.argv[1]
     for path in os.listdir('inputs'):
-	    G = read_input_file(path)
+	    G = read_input_file('inputs/'+ path)
 	    T = solve(G)
 	    assert is_valid_network(G, T)
 	    name = path[:-3]
